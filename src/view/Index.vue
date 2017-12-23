@@ -1,14 +1,16 @@
 <template>
   <div>
         <J_header></J_header>   
-        <div class="J_nav">J_nav</div>
+        <J_nav></J_nav>   
         <div class="J_xyhzq">J_xyhzq</div>
         <div class="J_footer">J_footer</div>
     </div>
 </template>
 
 <script>
+import API from "../../static/scripts/api.js"
 import j_header from "../components/J_header.vue"
+import j_nav from "../components/J_nav.vue"
 
 function defaultData() {
     return {
@@ -17,10 +19,10 @@ function defaultData() {
 }
 
 function testAPI() {
-    let xhr = new XMLHttpRequest() 
-    xhr.open('GET',"https://m.dianping.com/index/api/module")
-    xhr.send()
-    console.log(xhr.response)
+    let r = API.getRequest()
+    fetch(r).then((res) => {
+        console.log(res)
+    })
 }
 
 export default {
@@ -28,7 +30,8 @@ export default {
         return defaultData()
     },
     components: {
-        "J_header" : j_header
+        "J_header" : j_header,
+        "J_nav" : j_nav
     },
     mounted(){
         testAPI()
