@@ -3,7 +3,7 @@
         <div class="index-category Fix">
             <div id="J_slider" class="index_slider">
                 <div class="index_slider-wrap Fix">
-                    
+
                 </div>
             </div>
         </div>
@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import nav_items from "../../static/jsondata/nav.json.js"
+
 export default {
 
 }
