@@ -25,3 +25,14 @@ body {
 .footer_4tab, a, body, input, textarea {
     -webkit-tap-highlight-color: transparent;
 }
+.bord, body {
+    background-color: #f0f0f0;
+}
+
+.bord {
+    height: 10px;
+}
+
+.index_xyhzq, .qqyy {
+    display: -webkit-box;
+}
