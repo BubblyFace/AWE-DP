@@ -4,7 +4,7 @@
       <header class="index-head">
         <!-- location -->
         <a href="//m.dianping.com/citylist" class="city" onclick="alert('city Choice')">武汉</a>
-        <div class="search J_search_trigger"></div>
+        <div class="search J_search_trigger">输入商户名、地点</div>
         <a onclick="alert(个人账户)" href="//m.dianping.com/nmy/myinfo" class="self"></a>
       </header>
       <div class="header_fill"></div>

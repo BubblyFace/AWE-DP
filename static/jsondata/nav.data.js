@@ -1,4 +1,4 @@
-data = [{
+const data = [{
         pinyin: "meishi",
         name: "美食",
         src: "//www.dpfile.com/sc/eleconfig/20160126194705meishi.png",
@@ -178,20 +178,6 @@ data = [{
         src: "//www.dpfile.com/sc/eleconfig/20160125182200more.png",
         href: "//m.dianping.com/wuhan/category?from=m_nav_30_quanbufenlei"
     },
-    {
-        pinyin: "",
-        name: "",
-        src: "",
-        href: ""
-    },
-    {
-        pinyin: "",
-        name: "",
-        src: "",
-        href: ""
-    },
-    
-
 ]
 
 

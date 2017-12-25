@@ -2,8 +2,8 @@
   <div>
         <J_header></J_header>   
         <J_nav></J_nav>   
-        <div class="J_xyhzq">J_xyhzq</div>
-        <div class="J_footer">J_footer</div>
+        <J_xyhzq></J_xyhzq> 
+        <J_footer></J_footer>
     </div>
 </template>
 
@@ -11,6 +11,9 @@
 import API from "../../static/scripts/api.js"
 import j_header from "../components/J_header.vue"
 import j_nav from "../components/J_nav.vue"
+import j_xyhzq from "../components/J_xyhzq.vue"
+import j_footer from "../components/J_footer.vue"
+
 
 function defaultData() {
     return {
@@ -31,7 +34,9 @@ export default {
     },
     components: {
         "J_header" : j_header,
-        "J_nav" : j_nav
+        "J_nav" : j_nav,
+        "J_xyhzq": j_xyhzq,
+        "J_footer":j_footer
     },
     mounted(){
         testAPI()
