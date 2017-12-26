@@ -36,3 +36,12 @@ body {
 .index_xyhzq, .qqyy {
     display: -webkit-box;
 }
+
+ol, ul {
+    list-style: none;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}

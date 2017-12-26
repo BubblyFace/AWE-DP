@@ -8,9 +8,12 @@
                             <img class="icon" :src="item.src" >
                             <div>{{item.name}}</div>
                         </a>
-                    </div>
+                    </div>                
                 </div>
             </div>
+            <ul class="circles">
+                <li class="circle" v-for="index in pageInfo.length" :key="index"></li>
+            </ul>
         </div>
     </div>
 </template>
@@ -102,5 +105,19 @@ export default {
     margin: 0 auto 2px;
     color: #333;
     position: relative;
+}
+
+.index-category .circles {
+    line-height: 10px;
+}
+
+.index-category .circles .circle {
+    display: inline-block;
+    margin-right: 3px;
+    background-color: #ccc;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    width: 8px;
+    height: 8px;
 }
 </style>
