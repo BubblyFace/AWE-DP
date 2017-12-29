@@ -3,16 +3,16 @@
         <div class="index-category Fix">
             <div id="J_slider" class="index_slider">
                 <div class="index_slider-wrap Fix">
-                    <div class="page Fix" v-for="(page, index) in pageInfo" :key="index">
+                    <v-touch class="page Fix" v-for="(page, index) in pageInfo" :key="index" v-on:swipeleft="onSwipeLeft">
                         <a class="item" :href="item.href" v-for="item in page" :key="item.pinyin" style="width:20%">
                             <img class="icon" :src="item.src" >
                             <div>{{item.name}}</div>
                         </a>
-                    </div>                
+                    </v-touch>                
                 </div>
             </div>
             <ul class="circles">
-                <li class="circle" v-for="index in pageInfo.length" :key="index"></li>
+                <li class="circle" v-for="circle in circles" :key="'circle' + circle.n" :class="{'on': circle.n + 1 === pageIndex}"></li>
             </ul>
         </div>
     </div>
@@ -24,6 +24,14 @@ import nav_items from "../../static/jsondata/nav.data.js"
 function defaultData(){
     return {
         pageInfo:[],
+        circles:[{
+            n: 0,
+        },{
+            n: 1
+        },{
+            n: 2
+        }],
+        pageIndex: 1
     }
 }
 
@@ -49,6 +57,9 @@ export default {
                 }
             }
             console.log(nav_items.length,this.$data.pageInfo)
+        },
+        onSwipeLeft(){
+            alert(1)
         }
     },
     beforeMount(){
@@ -119,5 +130,9 @@ export default {
     -webkit-border-radius: 4px;
     width: 8px;
     height: 8px;
+}
+
+.index-category .circles .circle.on {
+    background-color: #f5734b;
 }
 </style>

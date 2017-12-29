@@ -8,6 +8,8 @@ import "../static/styles/index.css"
 
 Vue.config.productionTip = false
 
+var VueTouch = require('vue-touch')
+Vue.use(VueTouch)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

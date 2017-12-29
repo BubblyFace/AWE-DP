@@ -1,9 +1,9 @@
 <template>
     <div class="J_footer">
         {{dom_url}}
-        <a :href="f_url.url" v-for="(f_url, index) in urls[0]" :key="0+index" title>{{f_url.name}}</a>
-        <a :href="f_url.url" v-for="(f_url, index) in urls[1]" :key="1+index" title>{{f_url.name}}</a>
-        <a :href="f_url.url" v-for="(f_url, index) in urls[2]" :key="2+index" title>{{f_url.name}}</a>
+        <a :href="f_url.url" v-for="(f_url, index) in urls[0]" :key="'0'+index" title>{{f_url.name}}</a>
+        <a :href="f_url.url" v-for="(f_url, index) in urls[1]" :key="'1'+index" title>{{f_url.name}}</a>
+        <a :href="f_url.url" v-for="(f_url, index) in urls[2]" :key="'2'+index" title>{{f_url.name}}</a>
     </div>
 </template>
 <script>
