@@ -75,21 +75,26 @@ export default {
     },
     onPan(e) {
       let x = e.deltaX;
-      //平滑事件处理
-      let index = this.$data.pageIndex
-      this.$data.pagePosition[index].transform =  "translate(" + x + "px,0px)";
-      console.log('change current to ' + this.$data.pagePosition[index].transform)
-      if(this.$data.pagePosition[index--]){
-          this.$data.pagePosition[index--].transform =  "translate(" + (x - 414) + "px,0px)";
-          console.log('change current to ' + this.$data.pagePosition[index--].transform)
-      }
-      if(this.$data.pagePosition[index++]){
-          this.$data.pagePosition[index++].transform =  "translate(" + (x - 414) + "px,0px)";
-            console.log('change current to ' + this.$data.pagePosition[index++].transform)
-
+      this.$data.pagePosition[this.$data.pageIndex].transform =
+        "translate(" + x + "px,0px)";
+      //   console.log('change '+this.$data.pageIndex+' to ' + this.$data.pagePosition[this.$data.pageIndex].transform)
+      //   if(this.$data.pageIndex-1 >= 0){
+      //       console.log(this.$data.pageIndex-1)
+      //       this.$data.pagePosition[this.$data.pageIndex-1].transform =  "translate(" + (x - 414) + "px,0px)";
+      //   }
+      //   if(this.$data.pageIndex + 1 <3){
+      //       console.log(this.$data.pageIndex+1)
+      //       this.$data.pagePosition[this.$data.pageIndex+1].transform =  "translate(" + (x - 414) + "px,0px)";
+      //   }
+      //三种变换情况，
+      //最左边
+      if (this.$data.pageIndex === 0){
+          
       }
     },
-    setPageState() {
+    setPageState(currentIndex) {
+      //clear
+      this.$data.pagePosition = [];
       let defaultWidth = 414;
       let transformInfo = "translate(" + 0 + "px,0px)";
       for (let i = 0; i < 3; i++) {

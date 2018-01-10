@@ -45,3 +45,37 @@ li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
+
+/* .arrowent */
+.arrowent {
+    right: 10px;
+    background-size: 8px 14px;
+    margin-top: -4px;
+    transform: rotate(45deg);
+    height: 8px;
+    border-bottom: none;
+    border-left: none;
+    -webkit-transform: rotate(45deg);
+}
+
+.arrowDown, .arrowUp, .arrowent {
+    position: absolute;
+    top: 50%;
+    width: 8px;
+}
+
+.arrowDown, .arrowent {
+    border: 2px solid #bbb;
+}
+
+i, cite, em, var, address, dfn {
+    font-style: italic;
+}
+
+.index_cnt {
+    position: relative;
+}
+
+del {
+    text-decoration: line-through;
+}
