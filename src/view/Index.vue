@@ -2,7 +2,8 @@
   <div>
         <J_header></J_header>   
         <J_download-guide :moduleData="moduleList['download-guide']" ></J_download-guide>    
-        <J_nav></J_nav>   
+        <J_nav></J_nav> 
+        <J_headline :moduleData="moduleList['headline']"></J_headline>  
         <J_xyhzq></J_xyhzq> 
         <J_czth :moduleData="moduleList['czth']"></J_czth>  
         <J_footer></J_footer>
@@ -17,6 +18,7 @@ import j_nav from "../components/J_nav.vue"
 import j_xyhzq from "../components/J_xyhzq.vue"
 import j_footer from "../components/J_footer.vue"
 import j_czth from "../components/J_czth.vue"
+import j_headline from "../components/J_headline.vue"
 
 //数据导入
 import moduleData from "../../static/jsondata/modules.js";
@@ -46,7 +48,8 @@ export default {
         "J_xyhzq": j_xyhzq,
         "J_footer":j_footer,
         "J_download-guide":j_download_guide,
-        "J_czth": j_czth
+        "J_czth": j_czth,
+        "J_headline": j_headline
     },
     beforeMount(){
         //用这个钩子可以把数据传过去

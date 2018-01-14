@@ -96,8 +96,16 @@
 </template>
 
 <script>
+const  defaultData = function() {
+    return {}
+}
 export default {
-
+    data(){
+        return defaultData()
+    },
+    props:{
+        moduleData:Object
+    }
 }
 </script>
 
