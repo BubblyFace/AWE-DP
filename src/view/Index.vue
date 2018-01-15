@@ -6,6 +6,7 @@
         <J_headline :moduleData="moduleList['headline']"></J_headline>  
         <J_xyhzq></J_xyhzq> 
         <J_czth :moduleData="moduleList['czth']"></J_czth>  
+        <J_cnxh :moduleData="moduleList['cnxh']"></J_cnxh> 
         <J_footer></J_footer>
     </div>
 </template>
@@ -19,6 +20,7 @@ import j_xyhzq from "../components/J_xyhzq.vue"
 import j_footer from "../components/J_footer.vue"
 import j_czth from "../components/J_czth.vue"
 import j_headline from "../components/J_headline.vue"
+import j_cnxh from "../components/J_cnxh.vue"
 
 //数据导入
 import moduleData from "../../static/jsondata/modules.js";
@@ -49,7 +51,8 @@ export default {
         "J_footer":j_footer,
         "J_download-guide":j_download_guide,
         "J_czth": j_czth,
-        "J_headline": j_headline
+        "J_headline": j_headline,
+        "J_cnxh":j_cnxh
     },
     beforeMount(){
         //用这个钩子可以把数据传过去

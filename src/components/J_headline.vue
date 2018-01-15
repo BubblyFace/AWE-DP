@@ -118,7 +118,7 @@ export default {
 }
 .headlineWindow .headlineTitle {
     width: 50px;
-    background-image: url(//www.dpfile.com/app/app-m-module/static/a41a9b3….png);
+    background-image: url(//www.dpfile.com/app/app-m-module/static/a41a9b3b0c7b20af96d3cacbfd8692c5.png);
     background-position: -142px 18px;
     background-repeat: no-repeat;
     background-size: 186px;
@@ -132,6 +132,164 @@ export default {
     display: block;
     height: 30px;
     margin-top: 20px;
+}
+
+.headlineWindow .fixedWindow {
+    -webkit-box-flex: 1;
+    height: 65px;
+    position: relative;
+    top: 0
+}
+
+
+
+.headlineWindow .fixedWindow.withTranstion {
+    transition: -webkit-transform 1s;
+    transition: transform 1s;
+    transition: transform 1s,-webkit-transform 1s
+}
+
+.headlineWindow .fixedWindow.move1 {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px)
+}
+
+.headlineWindow .fixedWindow.move2 {
+    -webkit-transform: translateY(-130px);
+    transform: translateY(-130px)
+}
+
+.headlineWindow .fixedWindow.move3 {
+    -webkit-transform: translateY(-195px);
+    transform: translateY(-195px)
+}
+
+.headlineWindow .fixedWindow.move4 {
+    -webkit-transform: translateY(-260px);
+    transform: translateY(-260px)
+}
+
+.headlineWindow .fixedWindow.move5 {
+    -webkit-transform: translateY(-325px);
+    transform: translateY(-325px)
+}
+
+.headlineWindow .fixedWindow .winItem {
+    position: relative;
+    height: 65px;
+    line-height: 20px;
+    display: -webkit-box;
+    padding: 13px 24px 13px 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #111
+}
+
+.headlineWindow .fixedWindow .winItem .friendPic {
+    padding-top: 8px;
+    padding-right: 6px;
+    position: relative
+}
+
+.headlineWindow .fixedWindow .winItem .friendPic img {
+    border-radius: 15px;
+    width: 27px
+}
+
+.headlineWindow .fixedWindow .winItem .friendInfo {
+    -webkit-box-flex: 1;
+    position: relative;
+    padding-top: 2px
+}
+
+.headlineWindow .fixedWindow .winItem .friendInfo,.headlineWindow .fixedWindow .winItem .friendInfo .infoText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.headlineWindow .fixedWindow .winItem .friendInfo .subInfo {
+    display: -webkit-box;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.headlineWindow .fixedWindow .winItem .friendInfo .subInfo .location {
+    margin-right: 6px;
+    padding-left: 12px;
+    background: url(//www.dpfile.com/app/app-m-module/static/a41a9b3b0c7b20af96d3cacbfd8692c5.png) -41px -280px no-repeat;
+    background-size: 160px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.headlineWindow .fixedWindow .winItem .friendInfo .subInfo .shopName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.headlineWindow .fixedWindow .windowItem {
+    position: relative;
+    height: 65px;
+    line-height: 20px;
+    display: -webkit-box;
+    padding: 14px 0 13px 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #111
+}
+
+.headlineWindow .fixedWindow .windowItem .mainTitle {
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding-right: 10px;
+    -webkit-box-pack: center
+}
+
+.headlineWindow .fixedWindow .windowItem .rightPic {
+    width: 56px;
+    position: relative
+}
+
+.headlineWindow .fixedWindow .windowItem .rightPic img {
+    margin-top: -4px;
+    position: relative;
+    z-index: 1
+}
+
+.headlineWindow .fixedWindow .windowItem .rightPic .imgNum {
+    position: absolute;
+    padding: 1px 10px;
+    border-radius: 12px;
+    -webkit-transform: scale(.72);
+    transform: scale(.72);
+    top: 18px;
+    right: 10px;
+    color: #fff;
+    background-color: rgba(0,0,0,.6);
+    font-size: 15px;
+    z-index: 2;
+    font-weight: 500
+}
+
+.headlineWindow .fixedWindow .windowItem .rightPic .rightPicShadow {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(0,#e1e1e1,#e1e1e1 50%,transparent 0) 100% 100%/100% 1px no-repeat,linear-gradient(0,#e1e1e1,#e1e1e1 50%,transparent 0) 100% 0/100% 1px no-repeat,linear-gradient(90deg,#e1e1e1,#e1e1e1 50%,transparent 0) 100% 100%/1px 100% no-repeat,linear-gradient(90deg,#e1e1e1,#e1e1e1 50%,transparent 0) 0 100%/1px 100% no-repeat;
+    position: absolute;
+    top: -2px;
+    left: 3px
+}
+
+.headlineWindow.headline_qq .headlineTitle {
+    background-position: -86px 18px
 }
 
 </style>
