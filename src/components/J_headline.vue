@@ -2,7 +2,7 @@
   <div class="J_headline">
       <div class="headlineWindow headline_browser" id="headlineWindow">
     <div class="headlineTitle"></div>
-    <ul class="fixedWindow move0" id="fixedWindow">
+    <ul :class="classList[classIndex%5]" id="fixedWindow">
 
         
         
@@ -97,7 +97,15 @@
 
 <script>
 const  defaultData = function() {
-    return {}
+    return {
+        classIndex:0,
+        classList:['fixedWindow move0',
+        'fixedWindow withTranstion move1', 
+        'fixedWindow withTranstion move2',
+        'fixedWindow withTranstion move3',
+        'fixedWindow withTranstion move4',
+        ]
+    }
 }
 export default {
     data(){
@@ -105,6 +113,17 @@ export default {
     },
     props:{
         moduleData:Object
+    },
+    methods:{
+        init(){
+            self = this.$data
+            setInterval(()=>{
+                self.classIndex =  (self.classIndex + 1) % 5 
+            },3000)
+        }
+    },
+    mounted(){
+        this.init()
     }
 }
 </script>
