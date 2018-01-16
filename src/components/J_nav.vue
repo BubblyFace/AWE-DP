@@ -74,13 +74,20 @@ export default {
       // } else if (x > 207 && this.$data.pageIndex > 0) {
       //   this.$data.pageIndex--;
       // }
+
+      if (x < -this.$data.defaultWidth / 2 && this.$data.pageIndex < 2) {
+          this.$data.changeFlag = 1;
+        }
+      if (x > this.$data.defaultWidth / 2 && this.$data.pageIndex > 0) {
+        this.$data.changeFlag = -1;
+      }
       console.log(x);
       this.handlePageChange();
     },
     onPan(e) {
       let x = e.deltaX;
       let pageIndex = this.$data.pageIndex;
-      //处理页面移动
+      //处理页面移动，只负责移动 更改页面交给panup来处理
       if (pageIndex === 0) {
         this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
           "0ms";
@@ -90,9 +97,9 @@ export default {
           "translate(" + x + "px,0px)";
         this.$data.pagePosition[this.$data.pageIndex + 1].transform =
           "translate(" + (x + this.$data.defaultWidth) + "px,0px)";
-        if (x < -this.$data.defaultWidth / 2) {
-          this.$data.changeFlag = 1;
-        }
+        // if (x < -this.$data.defaultWidth / 2) {
+        //   this.$data.changeFlag = 1;
+        // }
       } else if (pageIndex === 1) {
         this.$data.pagePosition[this.$data.pageIndex].transform =
           "translate(" + x + "px,0px)";
@@ -106,49 +113,82 @@ export default {
           "0ms";
         this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
           "0ms";
-        if (x < -this.$data.defaultWidth / 2) {
-          this.$data.changeFlag = 1;
-        }
-        if (x > this.$data.defaultWidth / 2) {
-          this.$data.changeFlag = -1;
-        }
+        // if (x < -this.$data.defaultWidth / 2) {
+        //   this.$data.changeFlag = 1;
+        // }
+        // if (x > this.$data.defaultWidth / 2) {
+        //   this.$data.changeFlag = -1;
+        // }
       } else if (pageIndex === 2) {
         this.$data.pagePosition[this.$data.pageIndex].transform =
           "translate(" + x + "px,0px)";
         this.$data.pagePosition[this.$data.pageIndex - 1].transform =
-          "translate(" + x + "px,0px)";
+          "translate(" + (x- this.$data.defaultWidth) + "px,0px)";
         this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
           "0ms";
         this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
           "0ms";
-        if (x > this.$data.defaultWidth / 2) {
-          this.$data.changeFlag = -1;
-        }
+        // if (x > this.$data.defaultWidth / 2) {
+        //   this.$data.changeFlag = -1;
+        // }
       }
     },
     handlePageChange() {
       //处理页面是否改变
-      let oldIndex = this.$data.oldIndex;
-      console.log(this.$data.pageIndex)
-      this.$data.pageIndex = this.$data.pageIndex + this.$data.changeFlag
-      this.$data.changeFlag = 0 
-      if (oldIndex !== 0) {
-        this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
-          "300ms";
-        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
-          "translate(" + -this.$data.defaultWidth + "px,0px)";
+      let oldIndex = this.$data.oldIndex;      
+      let changeFlag = this.$data.changeFlag
+      console.log('test')
+      if (oldIndex > 0) {
+        //left
+        if(changeFlag === -1){
+          this.$data.pagePosition[oldIndex - 1].transitionDuration =
+            "300ms";
+          this.$data.pagePosition[oldIndex - 1].transform =
+            "translate(" + 0 + "px,0px)";
+        }else{
+          this.$data.pagePosition[oldIndex - 1].transitionDuration =
+            "300ms";
+          this.$data.pagePosition[oldIndex - 1].transform =
+            "translate(" + -this.$data.defaultWidth + "px,0px)";
+        }
       }
-      this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
-        "300ms";
-      this.$data.pagePosition[this.$data.pageIndex].transform =
-        "translate(0px,0px)";
-      if (oldIndex !== 2) {
-        this.$data.pagePosition[this.$data.pageIndex + 1].transitionDuration =
-          "300ms";
-        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
+
+      if(changeFlag === -1){
+        //current
+        this.$data.pagePosition[oldIndex].transitionDuration =
+            "300ms";
+        this.$data.pagePosition[oldIndex].transform =
           "translate(" + this.$data.defaultWidth + "px,0px)";
+      }else if(changeFlag === 1){
+        this.$data.pagePosition[oldIndex].transitionDuration =
+            "300ms";
+        this.$data.pagePosition[oldIndex].transform =
+          "translate(" + -this.$data.defaultWidth + "px,0px)";
+      }else{
+        this.$data.pagePosition[oldIndex].transitionDuration =
+            "300ms";
+        this.$data.pagePosition[oldIndex].transform =
+          "translate(" + 0 + "px,0px)";
+
       }
-      this.$data.pageIndex = this.$data.pageIndex + this.$data.changeFlag
+
+      if (oldIndex < 2) {
+        //right
+        if(changeFlag === 1){
+          this.$data.pagePosition[oldIndex + 1].transitionDuration =
+            "300ms";
+          this.$data.pagePosition[oldIndex + 1].transform =
+            "translate(" + 0 + "px,0px)";
+        }else{
+          this.$data.pagePosition[oldIndex + 1].transitionDuration =
+            "300ms";
+          this.$data.pagePosition[oldIndex + 1].transform =
+            "translate(" + this.$data.defaultWidth + "px,0px)";
+        }
+      }
+      
+      this.$data.pageIndex = this.$data.pageIndex + this.$data.changeFlag 
+      this.$data.changeFlag = 0
       this.$data.oldIndex = this.$data.pageIndex;
     },
     setPageState() {
