@@ -1,9 +1,9 @@
 <template>
     <div class="J_nav">
-        <div class="index-category Fix">
-            <div id="J_slider" class="index_slider">
-                <div class="index_slider-wrap Fix" :style="{width: pageInfo.length * 414+'px'}" ref="pageContainer">
-                    <v-touch class="page Fix" v-for="(page, index) in pageInfo" :key="index" v-on:swipe="onSwipe" v-on:pan="onPan" :style="pagePosition[index]" >
+        <div class="index-category Fix nav_new J_category">
+            <div id="J_slider" class="index_slider nav_browser">
+                <div class="index_slider-wrap Fix" :style="{width: pageInfo.length * defaultWidth+'px'}" ref="pageContainer">
+                    <v-touch class="page Fix" v-for="(page, index) in pageInfo" :key="index" v-on:panend="onPanup" v-on:pan="onPan" :style="pagePosition[index]" >
                         <a class="item" :href="item.href" v-for="item in page" :key="item.pinyin" style="width:20%">
                             <img class="icon" :src="item.src" >
                             <div>{{item.name}}</div>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <ul class="circles">
-                <li class="circle" v-for="circle in circles" :key="'circle' + circle.n" :class="{'on': circle.n + 1 === pageIndex}"></li>
+                <li class="circle" v-for="circle in circles" :key="'circle' + circle.n" :class="{'on': circle.n  === pageIndex}"></li>
             </ul>
         </div>
     </div>
@@ -35,8 +35,11 @@ function defaultData() {
         n: 2
       }
     ],
-    pageIndex: 1,
-    pagePosition: []
+    oldIndex: 0,
+    pageIndex: 0,
+    changeFlag:0,
+    pagePosition: [],
+    defaultWidth: document.body.clientWidth
   };
 }
 
@@ -63,39 +66,95 @@ export default {
         }
       }
     },
-    onSwipe(e) {
+    onPanup(e) {
       let x = e.deltaX;
-      console.log(x);
       //获取到x
-      if (x < -207 && this.$data.pageIndex < 3) {
-        this.$data.pageIndex++;
-      } else if (x > 207 && this.$data.pageIndex > 0) {
-        this.$data.pageIndex--;
-      }
+      // if (x < -207 && this.$data.pageIndex < 3) {
+      //   this.$data.pageIndex++;
+      // } else if (x > 207 && this.$data.pageIndex > 0) {
+      //   this.$data.pageIndex--;
+      // }
+      console.log(x);
+      this.handlePageChange();
     },
     onPan(e) {
       let x = e.deltaX;
-      this.$data.pagePosition[this.$data.pageIndex].transform =
-        "translate(" + x + "px,0px)";
-      //   console.log('change '+this.$data.pageIndex+' to ' + this.$data.pagePosition[this.$data.pageIndex].transform)
-      //   if(this.$data.pageIndex-1 >= 0){
-      //       console.log(this.$data.pageIndex-1)
-      //       this.$data.pagePosition[this.$data.pageIndex-1].transform =  "translate(" + (x - 414) + "px,0px)";
-      //   }
-      //   if(this.$data.pageIndex + 1 <3){
-      //       console.log(this.$data.pageIndex+1)
-      //       this.$data.pagePosition[this.$data.pageIndex+1].transform =  "translate(" + (x - 414) + "px,0px)";
-      //   }
-      //三种变换情况，
-      //最左边
-      if (this.$data.pageIndex === 0){
-          
+      let pageIndex = this.$data.pageIndex;
+      //处理页面移动
+      if (pageIndex === 0) {
+        this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
+          "0ms";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transitionDuration =
+          "0ms";
+        this.$data.pagePosition[this.$data.pageIndex].transform =
+          "translate(" + x + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
+          "translate(" + (x + this.$data.defaultWidth) + "px,0px)";
+        if (x < -this.$data.defaultWidth / 2) {
+          this.$data.changeFlag = 1;
+        }
+      } else if (pageIndex === 1) {
+        this.$data.pagePosition[this.$data.pageIndex].transform =
+          "translate(" + x + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
+          "translate(" + (x + this.$data.defaultWidth) + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex - 1].transform =
+          "translate(" + (x - this.$data.defaultWidth) + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
+          "0ms";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transitionDuration =
+          "0ms";
+        this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
+          "0ms";
+        if (x < -this.$data.defaultWidth / 2) {
+          this.$data.changeFlag = 1;
+        }
+        if (x > this.$data.defaultWidth / 2) {
+          this.$data.changeFlag = -1;
+        }
+      } else if (pageIndex === 2) {
+        this.$data.pagePosition[this.$data.pageIndex].transform =
+          "translate(" + x + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex - 1].transform =
+          "translate(" + x + "px,0px)";
+        this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
+          "0ms";
+        this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
+          "0ms";
+        if (x > this.$data.defaultWidth / 2) {
+          this.$data.changeFlag = -1;
+        }
       }
     },
-    setPageState(currentIndex) {
+    handlePageChange() {
+      //处理页面是否改变
+      let oldIndex = this.$data.oldIndex;
+      console.log(this.$data.pageIndex)
+      this.$data.pageIndex = this.$data.pageIndex + this.$data.changeFlag
+      this.$data.changeFlag = 0 
+      if (oldIndex !== 0) {
+        this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
+          "300ms";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
+          "translate(" + -this.$data.defaultWidth + "px,0px)";
+      }
+      this.$data.pagePosition[this.$data.pageIndex].transitionDuration =
+        "300ms";
+      this.$data.pagePosition[this.$data.pageIndex].transform =
+        "translate(0px,0px)";
+      if (oldIndex !== 2) {
+        this.$data.pagePosition[this.$data.pageIndex + 1].transitionDuration =
+          "300ms";
+        this.$data.pagePosition[this.$data.pageIndex + 1].transform =
+          "translate(" + this.$data.defaultWidth + "px,0px)";
+      }
+      this.$data.pageIndex = this.$data.pageIndex + this.$data.changeFlag
+      this.$data.oldIndex = this.$data.pageIndex;
+    },
+    setPageState() {
       //clear
       this.$data.pagePosition = [];
-      let defaultWidth = 414;
+      let defaultWidth = this.$data.defaultWidth;
       let transformInfo = "translate(" + 0 + "px,0px)";
       for (let i = 0; i < 3; i++) {
         if (i === 0) {
@@ -140,6 +199,45 @@ export default {
   height: 175px;
 }
 
+.index-category .index_slider.nav_qq {
+  background: url(//www.dpfile.com/app/app-m-module/static/8e7e2348af08b8b4b7f7f7f472ecd90b.png)
+    top no-repeat;
+  background-size: cover;
+  height: 151px;
+}
+
+.index-category .index_slider.nav_qq .index_slider-wrap .item {
+  padding: 7px 0 0 !important;
+  font-size: 13px;
+  height: 85px !important;
+}
+
+.index-category .index_slider.nav_qq .index_slider-wrap .item:nth-child(n + 6) {
+  padding-top: 14px !important;
+}
+
+.index-category
+  .index_slider.nav_qq
+  .index_slider-wrap
+  .item:nth-child(n + 6)
+  .icon {
+  width: 29px;
+  height: 29px;
+  margin: 0 auto -1px;
+}
+
+.index-category
+  .index_slider.nav_qq
+  .index_slider-wrap
+  .item:nth-child(-n + 5) {
+  color: #fff;
+}
+
+.index-category .index_slider .index_slider-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
 .index-category .index_slider .index_slider-wrap .page {
   float: left;
   padding: 0 10px;
@@ -170,6 +268,73 @@ export default {
   margin: 0 auto 2px;
   color: #333;
   position: relative;
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .hot,
+.index-category .index_slider .index_slider-wrap .page .item .new {
+  position: absolute;
+  left: 50%;
+  margin-left: 5px;
+  top: 14px;
+  width: 27px;
+  height: 14px;
+  z-index: 1;
+  color: #fff;
+  font-size: 12px;
+  -webkit-transform: scale(0.83);
+  transform: scale(0.83);
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .hot:after,
+.index-category .index_slider .index_slider-wrap .page .item .new:after {
+  display: block;
+  width: 17px;
+  height: 8px;
+  position: absolute;
+  left: 1px;
+  bottom: 6px;
+  font-size: 13px;
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+  font-weight: 700;
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .hot {
+  background-color: #f74c31;
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .hot:after {
+  content: "HOT";
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .new {
+  background-color: #5dad4d;
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .new:after {
+  content: "NEW";
+}
+
+.index-category .index_slider .index_slider-wrap .page .item .label {
+  word-break: keep-all;
+  position: absolute;
+  left: 50%;
+  margin-left: 5px;
+  top: 13px;
+  border: 1px solid #fff;
+  border-radius: 14px;
+  padding: 3px 3px 3px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  -webkit-transform: scale(0.67);
+  transform: scale(0.67);
+  min-width: 50%;
+  height: 18px;
+  color: #fff;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 
 .index-category .circles {
