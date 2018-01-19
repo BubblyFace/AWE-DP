@@ -67,14 +67,8 @@ export default {
       }
     },
     onPanup(e) {
+      // 处理页面状态的更改
       let x = e.deltaX;
-      //获取到x
-      // if (x < -207 && this.$data.pageIndex < 3) {
-      //   this.$data.pageIndex++;
-      // } else if (x > 207 && this.$data.pageIndex > 0) {
-      //   this.$data.pageIndex--;
-      // }
-
       if (x < -this.$data.defaultWidth / 2 && this.$data.pageIndex < 2) {
           this.$data.changeFlag = 1;
         }
@@ -97,9 +91,6 @@ export default {
           "translate(" + x + "px,0px)";
         this.$data.pagePosition[this.$data.pageIndex + 1].transform =
           "translate(" + (x + this.$data.defaultWidth) + "px,0px)";
-        // if (x < -this.$data.defaultWidth / 2) {
-        //   this.$data.changeFlag = 1;
-        // }
       } else if (pageIndex === 1) {
         this.$data.pagePosition[this.$data.pageIndex].transform =
           "translate(" + x + "px,0px)";
@@ -113,12 +104,6 @@ export default {
           "0ms";
         this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
           "0ms";
-        // if (x < -this.$data.defaultWidth / 2) {
-        //   this.$data.changeFlag = 1;
-        // }
-        // if (x > this.$data.defaultWidth / 2) {
-        //   this.$data.changeFlag = -1;
-        // }
       } else if (pageIndex === 2) {
         this.$data.pagePosition[this.$data.pageIndex].transform =
           "translate(" + x + "px,0px)";
@@ -128,9 +113,6 @@ export default {
           "0ms";
         this.$data.pagePosition[this.$data.pageIndex - 1].transitionDuration =
           "0ms";
-        // if (x > this.$data.defaultWidth / 2) {
-        //   this.$data.changeFlag = -1;
-        // }
       }
     },
     handlePageChange() {
@@ -208,7 +190,6 @@ export default {
         let defaultStyle = {
           width: defaultWidth + "px",
           left: deviation + "px",
-          //这里先写死，回来改一下就好了
           transitionDuration: "300ms",
           transform: transformInfo
         };
